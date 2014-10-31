@@ -1,0 +1,35 @@
+extends layout
+
+block scripts
+  -if (logged_in)
+    script
+      $(document).ready(function() {
+        $('#submit').click(function(){
+          $.post('/tweets/#{logged_in.name}', {tweet: $('#newTwit').val()}
+            , function (data) {
+              $('#tweet_list').prepend(data);
+          });
+        });
+      });
+
+  script
+    $(document).ready(function() {
+      // find tweets
+      function findTweets() {
+        $.get('/tweets/more', {}, function (data) {
+          $('#tweet_list').html(data);
+        });
+      }
+
+      setInterval(findTweets, 2000);
+    });
+
+block content
+  -if (logged_in)
+    div Create a twit
+    div
+      textarea(rows="10", cols="30", id="newTwit")
+      input(type="button", id="submit", value="Tweet")
+  
+  div(id="tweet_list") Here's the list of twit
+    include _tweets

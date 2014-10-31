@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Hi 
+    span(id="name") #{student.name}
+    . Are you done?
+
+  p Click one of the two buttons
+  a(id="help", class="btn btn-large btn-success") I'm finished
+  a(id="done", class="btn btn-large btn-danger", style="margin-left:50px;") I need help
+
+  div(id="message")
+  div
+    img(id="img")
+
+block js
+  script( src="/javascripts/jquery-1.8.3.min.js" )
+  script( src="/javascripts/student.js" )
